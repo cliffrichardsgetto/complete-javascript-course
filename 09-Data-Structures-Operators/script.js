@@ -236,10 +236,10 @@ console.log(o,c);
       console.log(otherIngredients);},
 };
 
-
+*/
 const rest = new Map();
 rest.set('name', 'Classico Italiano');
-rest.set(1, 'Firenze', 'Italy' );
+rest.set(1, 'Firenze, Italy' );
 console.log(rest.set(2, 'Lison', 'Portugal'));
 rest
  .set ('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
@@ -251,9 +251,52 @@ rest
  console.log(rest.get('name'));
  console.log(rest.get(true));
  console.log(rest.get(1));
+const time =8;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
 
+console.log(rest.has('categories'));
+rest.delete(2);
+console.log(rest);
+console.log(rest.size);
 
- const  arr=[2,3,4];
+//rest.set([1,2],'Test');
+const arr1 =[1,2];
+rest.set(arr1, 'Test');
+rest.set(document.querySelector('h1'), 'Heading');
+console.log(rest);
+console.log(rest.size);
+console.log(rest.get(arr1));
+ 
+const question = new Map([['question', 'what is the best  programming  language in  the  world?'],
+  [1, 'C'],
+  [2, 'Java'] ,
+  [3, 'JavaScript'],
+  ['correct', 3],
+[true,  'Correct'],
+[false, 'Try again'],]);
+
+console.log(question);
+//convert  object  into  map
+console.log(Object.entries(openingHours));
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+for (const [key, value] of question) {
+  if (typeof key ==='number') console.log(`Answer ${key}:${value}`);
+  }
+const answer  = Number(prompt('Your answer'));
+console.log(answer);
+
+console.log(question.get(question.get('correct') === answer));
+
+//covmert  map  into  arry
+console.log([...question]);
+console.log(question.entries());
+console.log([...question.keys()]);
+console.log([...question.values()]);
+
+/*
+const  arr=[2,3,4];
 
 const a =arr[0];
 const b=arr[1];
@@ -273,10 +316,10 @@ console.log(main,secondary);
 main=secondary;
 secondary =temp;  
 console.log(main, secondary); 
-*/
+
 [main, secondary]= [secondary,main];
 console.log(main,secondary);
-
+*/
 console.log(restaurant.order(2,0));
 
 // receive  2  return  values  from 
@@ -496,3 +539,88 @@ console.log([... new Set([...italianFoods.difference(mexicanFoods)])]);
 
 const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
 console.log('Difference italian', uniqueItalianFoods);
+
+
+const gameEvents =new Map([
+  [17, 'Goal'],
+  [36, 'Substitution'],
+  [47, 'Goal'],
+  [61,'Substitution'],
+  [64, 'Yellow Card'],
+  [69, 'Red card'],
+  [70, 'Substitution'],
+  [72,'Substitution'],
+  [76, 'Goal'],
+  [80, 'Goal'],
+  [92, 'Yellow card'],]);
+//1.
+  const  events =[...new Set(gameEvents.values())];
+  console.log(events);
+//2. 
+gameEvents.delete(64);
+//3.
+console.log(`An  event  happened, on average, every ${90/gameEvents.size} minutes`);
+const  time1 =[...gameEvents.keys()].pop();
+console.log(time1);
+console.log(`An event happened, on  average, every ${time1/ gameEvents.size} minutes`);
+
+//for  (const  [key, value] of gameEvents) {
+for  (const  [min, event] of gameEvents) {
+  const half = min <= 45 ? 'First' : 'Second';
+  console.log(`[${half} HALF] ${min} : ${event}` );
+ } 
+
+ const  airline ='Tap Air Portugal';
+ const  plane='A320';
+
+ console.log(plane[0]);
+ console.log(plane[1]);
+ console.log(plane[2]);
+ console.log('B737'[0]);
+ 
+ console.log(airline.length);
+ console.log('B737'.length);
+
+ console.log(airline.indexOf('r'));
+ console.log(airline.lastIndexOf('r'));
+ console.log(airline.indexOf('portugal'));
+
+ console.log(airline.slice(4));
+ console.log(airline.slice(4,7));
+ console.log(airline.slice(0, airline.indexOf('')));
+ console.log(airline.slice(0, airline.lastIndexOf('')+1));
+ console.log(airline.slice(-2));
+ console.log(airline.slice(1,-1));
+
+ const checkMiddleSeat = function(seat) {
+     const s = seat.slice(-1);
+     if(s === 'B' || s === 'E')
+      console.log('You got  the  middle  seat');
+    else console.log('You got  lucky');
+     };
+
+ checkMiddleSeat('11B');
+ checkMiddleSeat('23C');
+ checkMiddleSeat('3E');
+
+
+console.log(new String('jonas'));
+console.log(typeof  new String('jonas'));
+console.log(typeof  new String('jonas').slice(1));
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+const passenger = 'jOnAS';
+const passengerLower  = passenger.toLowerCase();
+const passengerCorrect = passengerLower[0].toLowerCase() +passengerLower.slice(1)
+console.log(passengerCorrect);
+
+//comparing  emails
+const  email='hello@jonas.io';
+const loginEmail='Hello@Jonas.Io \n';
+
+const normalizedEmail = loginEmail.toLowerCase().trim();
+console.log(normalizedEmail);
+console.log(email=== normalizedEmail);
+
