@@ -124,6 +124,7 @@ const account1 = {
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
     interestRate: 1.2, // %
     pin: 1111,
+    type : 'premium',
   };
   
   const account2 = {
@@ -131,6 +132,7 @@ const account1 = {
     movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
     interestRate: 1.5,
     pin: 2222,
+    type : 'standard',
   };
   
   const account3 = {
@@ -138,6 +140,7 @@ const account1 = {
     movements: [200, -200, 340, -300, -20, 50, 400, -460],
     interestRate: 0.7,
     pin: 3333,
+    type : 'premium',
   };
   
   const account4 = {
@@ -145,6 +148,7 @@ const account1 = {
     movements: [430, 1000, 700, 50, 90],
     interestRate: 1,
     pin: 4444,
+    type : 'basic',
   };
   
   const accounts = [account1, account2, account3, account4];
@@ -701,3 +705,208 @@ movements.sort((a,b) =>a-b);
 console.log(movements);
 movements.sort((a,b) =>b-a);
 console.log(movements);
+
+const  groupedMovements =Object.groupBy(movements,movement=> movement >0 ? 'deposits' : 'withdrawals');
+console.log(groupedMovements);
+
+const groupedByActivity =Object.groupBy(accounts, account => {
+  const movementCount =account.movements.length;
+  if(movementCount>=8) return 'very active';
+  if(movementCount>=4) return 'active';
+  if (movementCount>=1) return 'moderate';
+  return 'inactive';
+  });
+  console.log(groupedByActivity);
+
+const groupedAccounts1=Object.groupBy(accounts, account=> account.type);
+const groupedAccounts=Object.groupBy(accounts, ({type}) => type);
+console.log(groupedAccounts);
+
+const arr2=[1,2,3,4,5,6,7];
+console.log([1,2,3,4,5,6,7]);
+console.log(new Array(1,2,3,4,5,6,7));
+//empty array
+
+const x = new Array(7);
+console.log(x);
+//console.log(x.map(()=>5));
+
+x.fill(23,2,6);
+x.fill(1);
+
+console.log(x);
+arr.fill(23,2,6);
+console.log(arr);
+
+//array from
+
+const y = Array.from({length:7} , ()=> 1);
+console.log(y);
+
+const z= Array.from({length : 7}, (_,i) => i+1);
+console.log(z);
+
+labelBalance.addEventListener('click', function() 
+ {const movementsUI1=  Array.from(
+  document.querySelectorAll('.movements__value'));
+ //   const movementsUI =Array.from(document.querySelectorAll('.movements__value'));
+//console.log(movementsUI);
+console.log(movementsUI1.map(el=>el.textContent.replace('E', '')));
+ });
+
+ labelBalance.addEventListener('click', function() 
+ {const movementsUI=  Array.from(
+  document.querySelectorAll('.movements__value'),el=>Number(el.textContent.replace('E', '')));
+
+console.log(movementsUI);
+}); 
+
+const movementsUI2=[...document.querySelectorAll('.movements__value')];
+
+console.log(movements);
+
+const reversedMOV=movements.slice().reverse();
+console.log(reversedMOV);
+const reversedMOV1=movements.toReversed();
+console.log(reversedMOV1);
+movements[1] =2000;
+console.log(movements);
+
+const newMovements=movements.with(1,2000);
+console.log(newMovements);
+
+const  bankDepositSum= accounts.map(acc=> acc.movements);
+
+const  bankDepositSum1= accounts.flatMap(acc=> acc.movements)
+    .filter(mov=> mov >0)
+    .reduce((sum, cur) => sum+cur,0);
+ console.log(bankDepositSum1); 
+ 
+ //  
+ const  numDeposits1000=accounts.flatMap(acc=>acc.movements)
+     // .reduce((count, cur) => (cur >=1000 ? count +1 : count), 0)
+      //  .reduce((count, cur) => (cur >=1000 ? count++ : count), 0)
+        .reduce((count, cur) => (cur >=1000 ? ++count : count), 0)
+ console.log(numDeposits1000)     
+
+ let a=10;
+ console.log(++a);
+ console.log(a);
+
+ const sums=accounts.flatMap(acc=>acc.movements)
+    .reduce((sums,cur)=> { cur > 0 ? (sums.deposits += cur) : (sums.withdrawls += cur);
+      return  sums;
+    },
+    {deposits :0 ,withdrawls : 0}); 
+ console.log(sums)   
+
+ 
+ const {deposits, withdrawals} =accounts.flatMap(acc=>acc.movements)
+    .reduce((sums,cur)=>{ sums[cur > 0 ? 'deposits' : 'withdrawls'] += cur;
+    return sums;
+   },
+  {deposits: 0 ,withdrawals: 0}); 
+ console.log(deposits,withdrawals); 
+
+ const convertTitleCase=function (title) {
+  const expectations =['a','an', 'the', 'but', 'or', 'on', 'in', 'with'];
+  const  titlecase=title.toLowerCase().split(' ');
+  return titlecase;
+ };
+ 
+ console.log(convertTitleCase('This is a nice title'));
+ console.log(convertTitleCase('This is a LONG title but not too long'));
+ console.log(convertTitleCase('and here is another title with  an EXAMPLE'));
+
+ 
+const convertTitleCase1=function (title1) {
+  const expections =['a','an', 'the', 'but', 'or', 'on', 'in', 'with'];
+   const titleCase1=title1
+   .toLowerCase().split(' ')
+   //.map(word => word[0].toUpperCase() 
+   //+ word.slice(1));
+return titleCase1;
+ };
+  
+
+ // 4.
+// this is a nice title -> This Is a Nice Title
+const convertTitleCase2 = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+   // .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+
+  return capitalize(titleCase);
+};
+
+ console.log(convertTitleCase2('This is a nice title'));
+ console.log(convertTitleCase2('This is a LONG title but not too long'));
+ console.log(convertTitleCase2('and here is another title with  an EXAMPLE'));
+
+
+ const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John', 'Leo'] },
+  { weight: 18, curFood: 244, owners: ['Joe'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+dogs.forEach(dog =>(dog.recFood=Math.floor(dog.weight ** 0.75 * 28)));
+console.log(dogs);
+
+//2. 
+const  dogSarah=dogs.find(dog=> dog.owners.includes('Sarah'));
+console.log(`Sarah dog  eats too ${dogSarah.curFood > dogSarah.recFood ? 'much' : 'title'}`);
+
+//3.
+const ownersToomuch=dogs.filter(dog =>dog.curFood > dog.recFood)
+     .flatMap(dog=>dog.owners);
+ console.log(ownersToomuch);
+ const ownersToolittle=dogs.filter(dog =>dog.curFood < dog.recFood)
+     .flatMap(dog=>dog.owners);
+ console.log(ownersToolittle);
+
+
+ //4.
+ console.log(`${ownersToomuch.join(' and ' )}'s dogs are eating too  much `);
+ console.log(`${ownersToolittle.join(' and '   )}'s dogs  are  eating  too little`);
+
+ //5. 
+ console.log(dogs.some(dog => dog.curFood === dog.recFood));
+
+ //6.
+const checkEatingOkay = dog => dog.curFood < dog.recFood *1.1 && dog.curFood> dog.recFood * 0.9;
+console.log(dogs.every(checkEatingOkay));
+console.log(dogs.every(dog=> dog.curFood < dog.recFood *1.1 && dog.curFood> dog.recFood * 0.9))
+
+const dogsEatingOkay=dogs.filter(checkEatingOkay); 
+console.log(dogsEatingOkay);
+
+//8.
+const dogsGroupedBYPortion=Object.groupBy(dogs, dog=> {
+  if (dog.curFood>dog.recFood) {
+    return 'too-much'}
+  else if (dog.curFood < dog.recFood) {
+    return 'too-little';
+  } else {
+    return 'exact';
+  }}
+  );
+console.log(dogsGroupedBYPortion) ;
+ 
+//9. 
+const dogsGroupedByOwners=Object.groupBy(
+  dogs,dog => `${ dog.owners.length}-owners`);
+console.log(dogsGroupedByOwners);
+
+//10.
+const  dogsSorted =dogs.toSorted((a,b) => b.recFood-a.recFood);
+console.log(dogsSorted);
+ 
